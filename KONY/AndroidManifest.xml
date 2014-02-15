@@ -18,8 +18,7 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="special_interest_group.ateam.kony.SampleSettingsActivity"
-            android:label="@string/title_activity_sample_settings" >
+            android:name="special_interest_group.ateam.kony.SampleSettingsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,8 +26,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="special_interest_group.ateam.kony.SampleSettingsListrowActivity"
-            android:label="@string/title_activity_sample_settings_listrow" >
+            android:name="special_interest_group.ateam.kony.SampleSettingsListrowActivity">
         </activity>
     </application>
 
