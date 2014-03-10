@@ -1,5 +1,10 @@
 package special_interest_group.ateam.kony.db;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import special_interest_group.ateam.kony.db.AlarmSettingsConstants.DaysOfWeek;
+
 /**
  * DBから取得した一行のデータを保持するためのEntityクラス
  *
@@ -13,7 +18,7 @@ public class AlarmSettingsEntity {
 
 	/**
 	 * ON/OFF
-	 * <pre>0:OFF 1:ON</pre>
+	 * <pre>0(false):OFF 1(true):ON</pre>
 	 */
 	private int enable;
 
@@ -68,6 +73,14 @@ public class AlarmSettingsEntity {
 		this.enable = enable;
 	}
 
+	/**
+	 * ON/OFFをbooleanで設定
+	 * <pre>0(false):OFF 1(true):ON</pre>
+	 */
+	public void setEnable(boolean enable) {
+		this.enable = (enable ? 1 : 0);
+	}
+
 	public int getHour() {
 		return hour;
 	}
@@ -92,12 +105,48 @@ public class AlarmSettingsEntity {
 		this.repeat = repeat;
 	}
 
+	/**
+	 * 繰り返しを列挙体で取得
+	 */
+	public AlarmSettingsConstants.Repeat getRepeatConstant() {
+		return AlarmSettingsConstants.parseRepeat(repeat);
+	}
+
+	/**
+	 * 繰り返しを列挙体で設定
+	 */
+	public void setRepeat(AlarmSettingsConstants.Repeat repeat) {
+		this.repeat = repeat.getValue();
+	}
+
 	public String getDaysOfWeek() {
 		return daysOfWeek;
 	}
 
 	public void setDaysOfWeek(String daysOfWeek) {
 		this.daysOfWeek = daysOfWeek;
+	}
+
+	/**
+	 * 曜日選択を列挙体のHashMapで取得
+	 */
+	public HashMap<DaysOfWeek, String> getDaysOfWeeks() {
+		HashMap<DaysOfWeek, String> daysOfWeeks = new HashMap<DaysOfWeek, String>();
+		for (String str : daysOfWeek.split("")) {
+			daysOfWeeks.put(AlarmSettingsConstants.parseDaysOfWeek(str), "");
+		}
+		return daysOfWeeks;
+	}
+
+	/**
+	 * 曜日選択を列挙体のHashMapで設定
+	 */
+	public void setDaysOfWeeks(HashMap<DaysOfWeek, String> daysOfWeeks) {
+		StringBuilder sb = new StringBuilder();
+		for (Map.Entry<DaysOfWeek, String> entry : daysOfWeeks.entrySet()) {
+			sb.append(entry.getKey());
+		}
+		this.daysOfWeek = sb.toString();
 	}
 
 	public String getSound() {
