@@ -17,16 +17,18 @@
             android:name="special_interest_group.ateam.kony.MainActivity"
             android:label="@string/app_name" >
         </activity>
-        <activity
-            android:name="special_interest_group.ateam.kony.SampleSettingsActivity">
+        <activity android:name="special_interest_group.ateam.kony.SampleSettingsActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="special_interest_group.ateam.kony.SampleSettingsListrowActivity" >
+        </activity>
         <activity
-            android:name="special_interest_group.ateam.kony.SampleSettingsListrowActivity">
+            android:name="special_interest_group.ateam.kony.DetailActivity"
+            android:label="@string/title_activity_detail" >
         </activity>
     </application>
 
