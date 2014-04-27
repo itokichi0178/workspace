@@ -14,15 +14,14 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="special_interest_group.ateam.kony.MainActivity"
+            android:name="special_interest_group.ateam.kony.ListActivity"
             android:label="@string/app_name" >
-        </activity>
-        <activity android:name="special_interest_group.ateam.kony.SampleSettingsActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name="special_interest_group.ateam.kony.SampleSettingsActivity" >
         </activity>
         <activity android:name="special_interest_group.ateam.kony.SampleSettingsListrowActivity" >
         </activity>
