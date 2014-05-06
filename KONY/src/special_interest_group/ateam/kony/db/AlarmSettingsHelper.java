@@ -36,7 +36,7 @@ public class AlarmSettingsHelper extends SQLiteOpenHelper {
 	 * AlarmSettingsテーブル削除用SQL
 	 */
 	private static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS AlarmSettings";
-
+	
 	/**
 	 * コンストラクタ（必須）
 	 * @param context

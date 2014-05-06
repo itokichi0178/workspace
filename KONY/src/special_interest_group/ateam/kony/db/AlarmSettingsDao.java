@@ -37,6 +37,12 @@ public class AlarmSettingsDao {
 		};
 
 	/**
+     * AlarmSettingsテーブル確認用SQL
+     * */
+    
+    private static final String COUNT_TABLE_SQL = "SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='AlarmSettings';"; 
+
+	/**
 	 *  SQLiteDatabase
 	 */
 	private SQLiteDatabase db;
@@ -179,4 +185,16 @@ public class AlarmSettingsDao {
 		return db.delete(TABLE_NAME, whereClause, null);
 	}
 
+	
+	/**
+	 * テーブルの存在有無確認
+	 * @return テーブルの行数
+	 * */
+	public int tableCount()
+	{
+	    Cursor c = db.rawQuery(COUNT_TABLE_SQL, null); 
+	    c.moveToFirst();
+	    
+	    return c.getColumnCount();
+	}
 }
