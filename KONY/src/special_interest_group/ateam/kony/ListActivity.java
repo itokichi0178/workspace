@@ -24,7 +24,7 @@ public class ListActivity extends Activity
     /**
      * DBアクセスクラス
      * */
-    private AlarmSettingsDao alarmDao;
+    private AlarmSettingsDao dao;
     
     /**
      * アラームデータ格納
@@ -48,7 +48,7 @@ public class ListActivity extends Activity
         // SQLiteの準備
         AlarmSettingsHelper helper = new AlarmSettingsHelper(this, null, 1);
         SQLiteDatabase db = helper.getReadableDatabase();
-        alarmDao = new AlarmSettingsDao(db);
+        dao = new AlarmSettingsDao(db);
 //
 //        listAdapter = new MemoListAdapter();
 //        itemListView.setAdapter(listAdapter);
@@ -58,7 +58,7 @@ public class ListActivity extends Activity
 
         ListView mListView = (ListView)findViewById(R.id.AlarmList);
 
-        listAlarm = alarmDao.findAll();
+        listAlarm = dao.findAll();
 
 //        SimpleAdapter adapter = new SimpleAdapter(
 //                this,
