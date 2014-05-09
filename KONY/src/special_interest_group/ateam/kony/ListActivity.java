@@ -48,7 +48,7 @@ public class ListActivity extends Activity
         // SQLiteの準備
         AlarmSettingsHelper helper = new AlarmSettingsHelper(this, null, 1);
         SQLiteDatabase db = helper.getReadableDatabase();
-//        dao = new AlarmSettingsDao(db);
+        alarmDao = new AlarmSettingsDao(db);
 //
 //        listAdapter = new MemoListAdapter();
 //        itemListView.setAdapter(listAdapter);
