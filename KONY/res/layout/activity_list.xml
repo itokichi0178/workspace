@@ -4,6 +4,13 @@
 	android:layout_height="wrap_content"
 	android:orientation="vertical" >
 
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="＋" />
+
 	<ListView
 	    android:id="@+id/AlarmList"
 	    android:layout_width="fill_parent"
