@@ -109,25 +109,26 @@ public class ListActivity extends Activity
 //                mListView.setAdapter(adapter);
         
         // +ボタン押下時
-        btnAdd = (Button) findViewById(R.id.btnAdd);
-        
-        btnAdd.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                // テキストフィールドの内容をSound列に設定し、INSERT
-                dao.insert(
-                           0
-                         , 5
-                         , 10
-                         , 0
-                         , "月曜日"
-                         , "0"
-                         , 0);
-                loadList();
-            }
-        });
+        // エラーあり
+//        btnAdd = (Button) findViewById(R.id.btnAdd);
+//        
+//        btnAdd.setOnClickListener(new View.OnClickListener()
+//        {
+//            @Override
+//            public void onClick(View v)
+//            {
+//                // テキストフィールドの内容をSound列に設定し、INSERT
+//                dao.insert(
+//                           0
+//                         , 5
+//                         , 10
+//                         , 0
+//                         , "月曜日"
+//                         , "0"
+//                         , 0);
+//                loadList();
+//            }
+//        });
     }
     
     // リスト読み込み
