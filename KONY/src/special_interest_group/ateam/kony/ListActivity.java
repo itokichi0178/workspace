@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 /**
@@ -110,25 +111,25 @@ public class ListActivity extends Activity
         
         // +ボタン押下時
         // エラーあり
-//        btnAdd = (Button) findViewById(R.id.btnAdd);
-//        
-//        btnAdd.setOnClickListener(new View.OnClickListener()
-//        {
-//            @Override
-//            public void onClick(View v)
-//            {
-//                // テキストフィールドの内容をSound列に設定し、INSERT
-//                dao.insert(
-//                           0
-//                         , 5
-//                         , 10
-//                         , 0
-//                         , "月曜日"
-//                         , "0"
-//                         , 0);
-//                loadList();
-//            }
-//        });
+        btnAdd = (Button) findViewById(R.id.btnAdd);
+        
+        btnAdd.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                // テキストフィールドの内容をSound列に設定し、INSERT
+                dao.insert(
+                           0
+                         , 5
+                         , 10
+                         , 0
+                         , "月曜日"
+                         , "0"
+                         , 0);
+                loadList();
+            }
+        });
     }
     
     // リスト読み込み
@@ -145,7 +146,7 @@ public class ListActivity extends Activity
         }
 
         // リストビューのアダプターにデータリストの変更を通知
-        listAdapter.notifyDataSetChanged();   
+        listAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -186,7 +187,8 @@ public class ListActivity extends Activity
         @Override
         public View getView(int position, View convertView, ViewGroup parent)
         {
-            TextView memoTextView;
+            TextView tvTime;
+            Switch swtOnOff;
             View v = convertView;
             if (v == null)
             {
@@ -199,8 +201,17 @@ public class ListActivity extends Activity
             if (entity != null)
             {
                 // 取得した AlarmSettingsEntityデータを行レイアウト定義を使って行イメージを作成
-                //memoTextView = (TextView) v.findViewById(R.id.textview_alarmsettingsInfo);
-                //memoTextView.setText("rowId列=[" + entity.getRowId() + "] Sound列=[" + entity.getSound() + "]");
+                tvTime = (TextView) v.findViewById(R.id.tvTimes);
+                tvTime.setText(entity.getHour() + ":" + entity.getMinute());
+                swtOnOff = (Switch) v.findViewById(R.id.swtOnOff);
+                if(entity.getEnable() > 0)
+                {
+                    swtOnOff.setChecked(true);
+                }
+                else
+                {
+                    swtOnOff.setChecked(false);
+                }
             }
             return v;
         }
