@@ -32,7 +32,7 @@ public class ListActivity extends Activity
     private Button btnAdd;
     static final String TAG = "SampleSettings";
     private AlarmListAdapter listAdapter;
-    
+
     static List<AlarmSettingsEntity> alarmSettingsEntityList = new ArrayList<AlarmSettingsEntity>();
 
 
@@ -40,17 +40,17 @@ public class ListActivity extends Activity
      * DBアクセスクラス
      * */
     private AlarmSettingsDao dao;
-    
+
     /**
      * アラームデータ格納
      * */
     private List<AlarmSettingsEntity> listAlarm;
-    
+
     /**
      * アラームリスト
      * */
     private ArrayList<HashMap<Integer, AlarmSettingsDao>> alarmList;
-    
+
     @Override
     /**
      * 画面作成時
@@ -59,16 +59,18 @@ public class ListActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-        
+
         // SQLiteの準備
         AlarmSettingsHelper helper = new AlarmSettingsHelper(this, null, 1);
         SQLiteDatabase db = helper.getReadableDatabase();
         dao = new AlarmSettingsDao(db);
+
+        listAdapter = new AlarmListAdapter();
 //
 //        listAdapter = new MemoListAdapter();
 //        itemListView.setAdapter(listAdapter);
 //
-//        
+//
 //        alarmDao = new AlarmSettingsDao(SQLiteDatabase db);
 
         ListView mListView = (ListView)findViewById(R.id.AlarmList);
@@ -98,8 +100,8 @@ public class ListActivity extends Activity
 
 //        map = new HashMap<String, String>();
 //        map.put("piyo", "piyoString");
-//        data.add(map);  
-        
+//        data.add(map);
+
 //        SimpleAdapter adapter = new SimpleAdapter(
 //                this,
 //                data,
@@ -108,11 +110,11 @@ public class ListActivity extends Activity
 //                new int[]{R.id.HogeTextId, R.id.PiyoTextId}
 //                );
 //                mListView.setAdapter(adapter);
-        
+
         // +ボタン押下時
         // エラーあり
         btnAdd = (Button) findViewById(R.id.btnAdd);
-        
+
         btnAdd.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -131,13 +133,13 @@ public class ListActivity extends Activity
             }
         });
     }
-    
+
     // リスト読み込み
     protected void loadList()
     {
         // リストをクリア
         listAlarm.clear();
-        
+
         // データ全件を取得
         listAlarm = dao.findAll();
         for (AlarmSettingsEntity entity : listAlarm)
@@ -160,7 +162,7 @@ public class ListActivity extends Activity
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-    
+
     public class AlarmListAdapter extends BaseAdapter
     {
         @Override
