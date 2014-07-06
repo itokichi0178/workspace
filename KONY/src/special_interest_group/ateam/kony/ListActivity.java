@@ -119,14 +119,14 @@ public class ListActivity extends Activity
             public void onClick(View v)
             {
                 // テキストフィールドの内容をSound列に設定し、INSERT
-                dao.insert(
-                           0
-                         , 5
-                         , 10
-                         , 0
-                         , "月曜日"
-                         , "0"
-                         , 0);
+//                dao.insert(
+//                           0
+//                         , 5
+//                         , 10
+//                         , 0
+//                         , "月曜日"
+//                         , "0"
+//                         , 0);
                 loadList();
             }
         });
