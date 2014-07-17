@@ -9,6 +9,7 @@ import special_interest_group.ateam.kony.db.AlarmSettingsEntity;
 import special_interest_group.ateam.kony.db.AlarmSettingsHelper;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,6 +36,7 @@ public class ListActivity extends Activity
 
     static List<AlarmSettingsEntity> alarmSettingsEntityList = new ArrayList<AlarmSettingsEntity>();
 
+    ListView itemListView;
 
     /**
      * DBアクセスクラス
@@ -65,62 +67,18 @@ public class ListActivity extends Activity
         SQLiteDatabase db = helper.getReadableDatabase();
         dao = new AlarmSettingsDao(db);
 
-        listAdapter = new AlarmListAdapter();
-//
-//        listAdapter = new MemoListAdapter();
-//        itemListView.setAdapter(listAdapter);
-//
-//
-//        alarmDao = new AlarmSettingsDao(SQLiteDatabase db);
-
-        ListView mListView = (ListView)findViewById(R.id.AlarmList);
+        itemListView = (ListView)findViewById(R.id.AlarmList);
 
         listAlarm = dao.findAll();
 
-//        SimpleAdapter adapter = new SimpleAdapter(
-//                this,
-//                data,
-//                R.layout.alarm_row,
-//                new String[]{"hoge", "piyo"},
-//                new int[]{R.id.HogeTextId, R.id.PiyoTextId}
-//                );
-//        mListView.setAdapter(adapter);
-
-//        alarmList = new ArrayList<HashMap<Integer, AlarmSettingsDao>>();
-//        alarmData = new HashMap<Integer, AlarmSettingsDao>();
-
-        // リストデータを詰め込む前にインスタンス生成
-        //data = new ArrayList<HashMap<String, String>>();
-
-        // 一行の複数項目を HashMap で詰め込む
-//        map = new HashMap<String, String>();
-//        map.put("hoge", "hogeString");
-//        map.put("piyo", "piyoString");
-//        data.add(map);
-
-//        map = new HashMap<String, String>();
-//        map.put("piyo", "piyoString");
-//        data.add(map);
-
-//        SimpleAdapter adapter = new SimpleAdapter(
-//                this,
-//                data,
-//                R.layout.alarm_row,
-//                new String[]{"hoge", "piyo"},
-//                new int[]{R.id.HogeTextId, R.id.PiyoTextId}
-//                );
-//                mListView.setAdapter(adapter);
-
         // +ボタン押下時
-        // エラーあり
         btnAdd = (Button) findViewById(R.id.btnAdd);
-
         btnAdd.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                // テキストフィールドの内容をSound列に設定し、INSERT
+//                // テキストフィールドの内容をSound列に設定し、INSERT
 //                dao.insert(
 //                           0
 //                         , 5
@@ -129,9 +87,19 @@ public class ListActivity extends Activity
 //                         , "月曜日"
 //                         , "0"
 //                         , 0);
-                loadList();
+                // 詳細画面へ遷移
+                Intent intent = new Intent();
+                intent.setClassName(
+                        "special_interest_group.ateam.kony",
+                        "special_interest_group.ateam.kony.DetailActivity");
+                startActivity(intent);
             }
         });
+
+        listAdapter = new AlarmListAdapter();
+        itemListView.setAdapter(listAdapter);
+
+        loadList();
     }
 
     // リスト読み込み
@@ -191,6 +159,7 @@ public class ListActivity extends Activity
         {
             TextView tvTime;
             Switch swtOnOff;
+            Button btnDetail;
             View v = convertView;
             if (v == null)
             {
@@ -214,9 +183,10 @@ public class ListActivity extends Activity
                 {
                     swtOnOff.setChecked(false);
                 }
+                btnDetail = (Button)v.findViewById(R.id.btnDetail);
+                btnDetail.setText(">");
             }
             return v;
         }
     }
-
 }
