@@ -1,7 +1,6 @@
 package special_interest_group.ateam.kony;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import special_interest_group.ateam.kony.db.AlarmSettingsDao;
@@ -28,30 +27,17 @@ import android.widget.TextView;
  * */
 public class ListActivity extends Activity
 {
-    private ArrayList<HashMap<String, String>> data;
-    private HashMap<String, String> map;
-    private Button btnAdd;
     static final String TAG = "SampleSettings";
-    private AlarmListAdapter listAdapter;
-
-    static List<AlarmSettingsEntity> alarmSettingsEntityList = new ArrayList<AlarmSettingsEntity>();
 
     ListView itemListView;
+    Button btnAdd;
 
     /**
      * DBアクセスクラス
      * */
-    private AlarmSettingsDao dao;
-
-    /**
-     * アラームデータ格納
-     * */
-    private List<AlarmSettingsEntity> listAlarm;
-
-    /**
-     * アラームリスト
-     * */
-    private ArrayList<HashMap<Integer, AlarmSettingsDao>> alarmList;
+    static AlarmSettingsDao dao;
+    static AlarmListAdapter listAdapter;
+    static List<AlarmSettingsEntity> alarmSettingsEntityList = new ArrayList<AlarmSettingsEntity>();
 
     @Override
     /**
@@ -62,32 +48,17 @@ public class ListActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        // SQLiteの準備
-        AlarmSettingsHelper helper = new AlarmSettingsHelper(this, null, 1);
-        SQLiteDatabase db = helper.getReadableDatabase();
-        dao = new AlarmSettingsDao(db);
-
+        // 初期設定
+        btnAdd = (Button) findViewById(R.id.btnAdd);
         itemListView = (ListView)findViewById(R.id.AlarmList);
 
-        listAlarm = dao.findAll();
-
         // +ボタン押下時
-        btnAdd = (Button) findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-//                // テキストフィールドの内容をSound列に設定し、INSERT
-//                dao.insert(
-//                           0
-//                         , 5
-//                         , 10
-//                         , 0
-//                         , "月曜日"
-//                         , "0"
-//                         , 0);
-                // 詳細画面へ遷移
+                // 詳細画面へ遷移（新規登録）
                 Intent intent = new Intent();
                 intent.setClassName(
                         "special_interest_group.ateam.kony",
@@ -95,6 +66,11 @@ public class ListActivity extends Activity
                 startActivity(intent);
             }
         });
+
+        // SQLiteの準備
+        AlarmSettingsHelper helper = new AlarmSettingsHelper(this, null, 1);
+        SQLiteDatabase db = helper.getReadableDatabase();
+        dao = new AlarmSettingsDao(db);
 
         listAdapter = new AlarmListAdapter();
         itemListView.setAdapter(listAdapter);
@@ -106,11 +82,11 @@ public class ListActivity extends Activity
     protected void loadList()
     {
         // リストをクリア
-        listAlarm.clear();
+        alarmSettingsEntityList.clear();
 
         // データ全件を取得
-        listAlarm = dao.findAll();
-        for (AlarmSettingsEntity entity : listAlarm)
+        alarmSettingsEntityList = dao.findAll();
+        for (AlarmSettingsEntity entity : alarmSettingsEntityList)
         {
             Log.v(TAG, entity.toString());
         }
