@@ -90,7 +90,7 @@ public class ListActivity extends Activity
         {
             Log.v(TAG, entity.toString());
         }
-
+        
         // リストビューのアダプターにデータリストの変更を通知
         listAdapter.notifyDataSetChanged();
     }
