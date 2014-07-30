@@ -15,9 +15,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -67,6 +72,16 @@ public class ListActivity extends Activity
             }
         });
 
+        // リストクリック時
+        itemListView.setOnItemClickListener(new OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                // TODO 詳細画面へ遷移（更新）
+            }
+        });
+
         // SQLiteの準備
         AlarmSettingsHelper helper = new AlarmSettingsHelper(this, null, 1);
         SQLiteDatabase db = helper.getReadableDatabase();
@@ -90,7 +105,7 @@ public class ListActivity extends Activity
         {
             Log.v(TAG, entity.toString());
         }
-        
+
         // リストビューのアダプターにデータリストの変更を通知
         listAdapter.notifyDataSetChanged();
     }
@@ -135,7 +150,7 @@ public class ListActivity extends Activity
         {
             TextView tvTime;
             Switch swtOnOff;
-            Button btnDetail;
+            Button btnDelete;
             View v = convertView;
             if (v == null)
             {
@@ -144,7 +159,7 @@ public class ListActivity extends Activity
                 v = inflater.inflate(R.layout.alarm_row, null);
             }
             // データリストから指定位置の AlarmSettingsEntity データを取得
-            AlarmSettingsEntity entity = (AlarmSettingsEntity) getItem(position);
+            final AlarmSettingsEntity entity = (AlarmSettingsEntity) getItem(position);
             if (entity != null)
             {
                 // 取得した AlarmSettingsEntityデータを行レイアウト定義を使って行イメージを作成
@@ -159,8 +174,35 @@ public class ListActivity extends Activity
                 {
                     swtOnOff.setChecked(false);
                 }
-                btnDetail = (Button)v.findViewById(R.id.btnDetail);
-                btnDetail.setText(">");
+                btnDelete = (Button)v.findViewById(R.id.btnDelete);
+                btnDelete.setText("削除");
+
+                /**
+                 * 各行のOn/Offボタン
+                 * */
+                swtOnOff.setOnCheckedChangeListener(new OnCheckedChangeListener()
+                {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+                    {
+                        // 指定されたレコードの更新
+                        entity.setEnable(isChecked);
+                        dao.update(entity);
+                   }
+                });
+
+                /**
+                 * 各行の削除ボタン
+                 * */
+                btnDelete.setOnClickListener(new OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        // 指定されたレコードの削除
+                        dao.delete(entity.getRowId());
+                    }
+                });
             }
             return v;
         }
