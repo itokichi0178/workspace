@@ -191,6 +191,7 @@ public class ListActivity extends Activity
                         // 指定されたレコードの更新
                         entity.setEnable(isChecked);
                         dao.update(entity);
+                        loadList();
                    }
                 });
 
@@ -204,6 +205,7 @@ public class ListActivity extends Activity
                     {
                         // 指定されたレコードの削除
                         dao.delete(entity.getRowId());
+                        loadList();
                     }
                 });
             }
