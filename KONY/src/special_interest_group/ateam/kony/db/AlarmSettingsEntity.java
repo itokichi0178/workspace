@@ -1,5 +1,6 @@
 package special_interest_group.ateam.kony.db;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,7 +10,7 @@ import special_interest_group.ateam.kony.db.AlarmSettingsConstants.DaysOfWeek;
  * DBから取得した一行のデータを保持するためのEntityクラス
  *
  */
-public class AlarmSettingsEntity {
+public class AlarmSettingsEntity implements Serializable {
 
 	/**
 	 * rowId
