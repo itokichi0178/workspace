@@ -78,7 +78,7 @@ public class ListActivity extends Activity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-//                // TODO 詳細画面へ遷移（更新）
+                // TODO 詳細画面へ遷移（更新）
 //                Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
 //                intent.putExtra("setting", setting);
 //                startActivity(intent);
@@ -191,7 +191,7 @@ public class ListActivity extends Activity
                         // 指定されたレコードの更新
                         entity.setEnable(isChecked);
                         dao.update(entity);
-                        loadList();
+                        //loadList();
                    }
                 });
 
